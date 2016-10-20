@@ -1,0 +1,8 @@
+h1 Список вопросов
+
+p
+- @questions.each do |question|
+  p= link_to question.title, question
+
+hr
+p= link_to 'Задать вопрос', new_question_path
