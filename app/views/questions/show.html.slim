@@ -1,4 +1,10 @@
 h1= @question.title
 p= @question.body
 
+h2 Ответы
+- @question.answers.each do |answer|
+  p= answer.body
+  hr
+p= link_to 'Ответить', new_question_answer_path(@question)
+hr
 p= link_to 'К списку вопросов', questions_path
