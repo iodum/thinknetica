@@ -19,6 +19,7 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to @question, notice: 'Your question successfully created.'
     else
+      flash[:error] = @question.errors.full_messages
       render :new
     end
   end
