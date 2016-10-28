@@ -10,15 +10,15 @@ feature 'Create question', %q{
 
   scenario 'Authenticated user create the question with valid data' do
     sign_in(user)
-
+    data = attributes_for(:question)
     visit questions_path
     click_on 'Ask question'
-    fill_in 'Title', with: 'Test question'
-    fill_in 'Body', with: 'Question'
+    fill_in 'Title', with: data[:title]
+    fill_in 'Body', with: data[:body]
     click_on 'Create'
 
+    expect(page).to have_content data[:body]
     expect(page).to have_content 'Your question successfully created.'
-
   end
 
   scenario 'Authenticated user create the question with invalid data' do

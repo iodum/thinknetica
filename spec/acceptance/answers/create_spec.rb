@@ -10,12 +10,13 @@ feature 'Create answer', %q{
   given!(:question) { create(:question) }
 
   scenario 'Authenticated user create the answer with valid data' do
+    data = attributes_for(:answer)
     view_question(user, question)
-    fill_in 'Answer', with: 'Answer'
+    fill_in 'Answer', with: data[:body]
     click_on 'Add'
 
+    expect(page).to have_content data[:body]
     expect(page).to have_content 'Your answer successfully added.'
-
   end
 
   scenario 'Authenticated user create the answer with invalid data' do
@@ -29,11 +30,5 @@ feature 'Create answer', %q{
   scenario 'Non-authenticated user create the answer' do
     visit question_path question
     expect(page).to_not have_field 'Answer'
-  end
-
-  scenario 'Authenticated user can add answer on question page' do
-    view_question(user, question)
-    expect(page).to have_field 'Answer'
-    expect(page).to have_button 'Add'
   end
 end

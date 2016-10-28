@@ -4,7 +4,7 @@ RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
 
   describe 'GET #index' do
-    let(:questions) { create_list(:question, 2) }
+    let(:questions) { create_pair(:question) }
 
     before { get :index }
 
@@ -110,8 +110,8 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'does not change question in the database' do
         question.reload
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq question.title
+        expect(question.body).to eq question.body
       end
 
       it 're-renders edit view' do

@@ -1,12 +1,12 @@
 FactoryGirl.define do
   factory :question do
     title "MyString"
-    body "MyText"
+    sequence(:body) { |n| "My new question #{n}" }
     user
 
     factory :question_with_answers do
       transient do
-        answer_count 5
+        answer_count 2
       end
 
       after(:create) do |question, evaluator|

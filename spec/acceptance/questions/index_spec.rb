@@ -6,7 +6,7 @@ feature 'View list of questions', %q{
   I want to be able to view list of questions
 } do
 
-  given!(:questions) { create_list(:question, 5) }
+  given!(:questions) { create_pair(:question) }
 
   scenario 'User views list of questions' do
     visit questions_path
