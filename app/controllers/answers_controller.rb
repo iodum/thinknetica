@@ -10,18 +10,20 @@ class AnswersController < ApplicationController
   def create
     @answer = @question.answers.create(answers_params)
     @answer.user = current_user
-    @user = current_user
 
     if @answer.save
       redirect_to @question, notice: 'Your answer successfully added.'
     else
       flash[:error] = @answer.errors.full_messages
-      render :new
+      render 'questions/show'
     end
   end
 
   def destroy
-    @answer.destroy
+    if current_user.author_of?(@answer)
+      @answer.destroy
+    end
+
     redirect_to @answer.question
   end
 

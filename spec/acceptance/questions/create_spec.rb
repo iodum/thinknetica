@@ -17,6 +17,7 @@ feature 'Create question', %q{
     fill_in 'Body', with: data[:body]
     click_on 'Create'
 
+    expect(page).to have_content data[:title]
     expect(page).to have_content data[:body]
     expect(page).to have_content 'Your question successfully created.'
   end
