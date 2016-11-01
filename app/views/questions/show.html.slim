@@ -5,11 +5,15 @@ p= @question.body
   = link_to 'Delete', @question, method: :delete, class: 'btn btn-danger', role: 'button'
 
 h2 Ответы
-- @question.answers.each do |answer|
-  - if answer.persisted?
-    p= answer.body
-    - if user_signed_in? && current_user.author_of?(answer)
-      = link_to 'Delete answer', answer, method: :delete, class: 'btn btn-danger btn-sm', role: 'button'
+.answers
+  - if @question.answers.present?
+    - @question.answers.each do |answer|
+      - if answer.persisted?
+          p= answer.body
+          - if user_signed_in? && current_user.author_of?(answer)
+            = link_to 'Delete answer', answer, method: :delete, class: 'btn btn-danger btn-sm', role: 'button'
+  - else
+    p No any answers yet =(
 
 hr
 

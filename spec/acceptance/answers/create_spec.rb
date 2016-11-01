@@ -15,7 +15,10 @@ feature 'Create answer', %q{
     fill_in 'Answer', with: data[:body]
     click_on 'Add'
 
-    expect(page).to have_content data[:body]
+    expect(current_path).to eq question_path(question)
+    within '.answers' do
+      expect(page).to have_content data[:body]
+    end
     expect(page).to have_content 'Your answer successfully added.'
   end
 
