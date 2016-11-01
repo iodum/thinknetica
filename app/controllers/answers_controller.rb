@@ -12,10 +12,9 @@ class AnswersController < ApplicationController
     @answer.user = current_user
 
     if @answer.save
-      redirect_to @question, notice: 'Your answer successfully added.'
+      flash[:notice] = 'Your answer successfully added.'
     else
       flash[:error] = @answer.errors.full_messages
-      render 'questions/show'
     end
   end
 

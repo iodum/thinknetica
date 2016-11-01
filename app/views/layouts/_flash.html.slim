@@ -1,0 +1,7 @@
+- flash.each do |name, msg|
+  - if msg.class == Array
+    div.alert class="#{set_bootstrap_class(name)}"
+      - msg.each do |message|
+        = content_tag :div, message
+  - else
+    = content_tag :div, msg, class: "alert #{set_bootstrap_class(name)}"

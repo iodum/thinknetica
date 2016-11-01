@@ -9,7 +9,7 @@ feature 'Create answer', %q{
   given(:user) { create(:user) }
   given!(:question) { create(:question) }
 
-  scenario 'Authenticated user create the answer with valid data' do
+  scenario 'Authenticated user create the answer with valid data', js:true do
     data = attributes_for(:answer)
     view_question(user, question)
     fill_in 'Answer', with: data[:body]
@@ -19,10 +19,10 @@ feature 'Create answer', %q{
     within '.answers' do
       expect(page).to have_content data[:body]
     end
-    expect(page).to have_content 'Your answer successfully added.'
+    # expect(page).to have_content 'Your answer successfully added.'
   end
 
-  scenario 'Authenticated user create the answer with invalid data' do
+  scenario 'Authenticated user create the answer with invalid data', js:true do
     view_question(user, question)
     fill_in 'Answer', with: ''
     click_on 'Add'
