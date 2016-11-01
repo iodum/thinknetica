@@ -1,5 +1,7 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:new, :create]
+  before_action :load_answer, only: [:destroy]
 
   def new
     @answer = @question.answers.new
@@ -7,15 +9,29 @@ class AnswersController < ApplicationController
 
   def create
     @answer = @question.answers.create(answers_params)
+    @answer.user = current_user
 
     if @answer.save
-      redirect_to @question
+      redirect_to @question, notice: 'Your answer successfully added.'
     else
-      render :new
+      flash[:error] = @answer.errors.full_messages
+      render 'questions/show'
     end
   end
 
+  def destroy
+    if current_user.author_of?(@answer)
+      @answer.destroy
+    end
+
+    redirect_to @answer.question
+  end
+
   private
+
+  def load_answer
+    @answer = Answer.find(params[:id])
+  end
 
   def load_question
     @question = Question.find(params[:question_id])

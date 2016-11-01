@@ -1,0 +1,35 @@
+doctype html
+html lang="en"
+  head
+    meta charset="utf-8"
+    meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
+    title= "Thinknetica"
+    = csrf_meta_tags
+
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+
+  body
+    .navbar.collapse.navbar-collapse
+      .navbar-inner
+        .container
+          ul.nav.navbar-nav
+            li
+              = link_to "Questions", root_path
+            - if !user_signed_in?
+              li= link_to "Login", new_user_session_path
+            - else
+              li= link_to "Log out", destroy_user_session_path, method: :delete
+
+    .container
+      - flash.each do |name, msg|
+        - if msg.class == Array
+          div.alert class="#{set_bootstrap_class(name)}"
+            - msg.each do |message|
+              = content_tag :div, message
+        - else
+          = content_tag :div, msg, class: "alert #{set_bootstrap_class(name)}"
+
+      = yield
+

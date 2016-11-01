@@ -1,10 +1,17 @@
+p= link_to 'К списку вопросов', questions_path
 h1= @question.title
 p= @question.body
+- if user_signed_in? && current_user.author_of?(@question)
+  = link_to 'Delete', @question, method: :delete, class: 'btn btn-danger', role: 'button'
 
 h2 Ответы
 - @question.answers.each do |answer|
-  p= answer.body
-  hr
-p= link_to 'Ответить', new_question_answer_path(@question)
+  - if answer.persisted?
+    p= answer.body
+    - if user_signed_in? && current_user.author_of?(answer)
+      = link_to 'Delete answer', answer, method: :delete, class: 'btn btn-danger btn-sm', role: 'button'
+
 hr
-p= link_to 'К списку вопросов', questions_path
+
+- if user_signed_in?
+  = render 'answers/form'
