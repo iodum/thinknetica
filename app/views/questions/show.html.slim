@@ -6,7 +6,10 @@ p= @question.body
 
 h2 Ответы
 .answers
-  = render 'questions/answers'
+  - if @question.answers.present?
+      = render @question.answers
+  - else
+    p No any answers yet =(
 
 hr
 

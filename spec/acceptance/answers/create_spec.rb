@@ -19,7 +19,7 @@ feature 'Create answer', %q{
     within '.answers' do
       expect(page).to have_content data[:body]
     end
-    # expect(page).to have_content 'Your answer successfully added.'
+    expect(page).to have_content 'Your answer successfully added.'
   end
 
   scenario 'Authenticated user create the answer with invalid data', js:true do

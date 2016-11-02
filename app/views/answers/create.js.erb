@@ -1,5 +1,5 @@
 
-$('.answers').html('<%= j render 'questions/answers' %>');
+$('.answers').append('<%= j render @answer %>');
 $('#answer_body').val('');
 
 <% if flash.empty? %>
