@@ -23,13 +23,8 @@ html lang="en"
               li= link_to "Log out", destroy_user_session_path, method: :delete
 
     .container
-      - flash.each do |name, msg|
-        - if msg.class == Array
-          div.alert class="#{set_bootstrap_class(name)}"
-            - msg.each do |message|
-              = content_tag :div, message
-        - else
-          = content_tag :div, msg, class: "alert #{set_bootstrap_class(name)}"
+      .flash-messages
+        = render 'layouts/flash'
 
       = yield
 

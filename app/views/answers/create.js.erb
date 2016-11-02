@@ -1,0 +1,15 @@
+
+$('.answers').append('<%= j render @answer %>');
+$('#answer_body').val('');
+
+<% if flash.empty? %>
+    $('.flash-messages').html(' ');
+<% else %>
+    $('.flash-messages').html(' ').html('<%= j render 'layouts/flash' %>');
+    <% flash.clear %>
+<% end %>
+
+
+
+
+
