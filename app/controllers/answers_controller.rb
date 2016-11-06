@@ -26,8 +26,6 @@ class AnswersController < ApplicationController
     if current_user.author_of?(@answer)
       @answer.destroy
     end
-
-    redirect_to @answer.question
   end
 
   private
