@@ -77,9 +77,10 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'PATCH #update' do
     sign_in_user
-    let(:answer) { create( :answer, question: question) }
 
     context 'with valid attributes' do
+      let(:answer) { create( :answer, question: question, user: @user) }
+
       it 'assings the requested answer to @answer' do
         patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
         expect(assigns(:answer)).to eq answer
@@ -94,6 +95,16 @@ RSpec.describe AnswersController, type: :controller do
       it 'render update template ' do
         patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
         expect(response).to render_template :update
+      end
+    end
+
+    context 'update by other user' do
+      let(:new_user) { create( :user ) }
+      let(:answer) { create( :answer, question: question, user: new_user ) }
+
+      it 'redirects to related question page' do
+        process :update, method: :patch, params: { id: answer.id, answer: { body: 'new_body' } }, format: :js
+        expect(answer.body).to eq answer.body
       end
     end
   end

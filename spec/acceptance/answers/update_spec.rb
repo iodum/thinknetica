@@ -41,6 +41,16 @@ feature 'Answer editing', %q{
       end
     end
 
-    scenario 'try to edit other user\'s question'
   end
+
+  scenario 'try to edit other user\'s question' do
+    new_user = create(:user)
+    sign_in new_user
+    visit question_path(question)
+
+    within '.answers' do
+      expect(page).to_not have_link 'Edit'
+    end
+  end
+
 end

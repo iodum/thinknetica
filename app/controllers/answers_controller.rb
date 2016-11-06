@@ -17,7 +17,9 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer.update(answers_params)
+    if current_user.author_of?(@answer)
+      @answer.update(answers_params)
+    end
   end
 
   def destroy
