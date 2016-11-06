@@ -8,4 +8,16 @@
     h2 {
         margin-top: 0;
     }
+
+    .edit_question {
+        display: none;
+    }
+}
+
+.btn {
+    margin: 10px 0 15px;
+
+    & + .btn {
+        margin-left: 10px;
+    }
 }
