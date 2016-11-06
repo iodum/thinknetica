@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
-  let(:question) { create(:question) }
+  let!(:question) { create(:question) }
   let(:user) { create(:user) }
 
   describe 'GET #new' do
@@ -71,6 +71,29 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'delete answer' do
         expect { delete :destroy, params: { id: answer } }.to_not change(Answer, :count)
+      end
+    end
+  end
+
+  describe 'PATCH #update' do
+    sign_in_user
+    let(:answer) { create( :answer, question: question) }
+
+    context 'with valid attributes' do
+      it 'assings the requested answer to @answer' do
+        patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
+        expect(assigns(:answer)).to eq answer
+      end
+
+      it 'change answer attributes' do
+        patch :update, params: { id: answer, question_id: question, answer: { body: 'new_body' } }, format: :js
+        answer.reload
+        expect(answer.body).to eq 'new_body'
+      end
+
+      it 'render update template ' do
+        patch :update, params: { id: answer, question_id: question, answer: attributes_for(:answer) }, format: :js
+        expect(response).to render_template :update
       end
     end
   end

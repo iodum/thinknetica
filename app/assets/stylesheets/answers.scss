@@ -1,0 +1,17 @@
+.answer-wrapper {
+    padding: 15px 10px;
+    border: 1px #eee solid;
+    border-radius: 5px;
+    margin: 0 0 10px;
+
+    .btn {
+        margin: 10px 0 15px;
+
+        & + .btn {
+            margin-left: 10px;
+        }
+    }
+    .edit_answer {
+        display: none;
+    }
+}

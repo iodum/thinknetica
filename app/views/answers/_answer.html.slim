@@ -1,3 +1,11 @@
-p= answer.body
-- if answer.persisted? && user_signed_in? && current_user.author_of?(answer)
-  = link_to 'Delete answer', answer, method: :delete, class: 'btn btn-danger btn-sm', role: 'button'
+div.answer-wrapper id="answer-#{answer.id}"
+  .body
+    = answer.body
+  - if answer.persisted? && user_signed_in? && current_user.author_of?(answer)
+    = link_to 'Delete', answer, method: :delete, class: 'btn btn-danger btn-sm', role: 'button'
+    = link_to 'Edit', '', remote: true, class: 'edit-answer-link btn btn-default btn-sm', data: {answer: answer.id}
+    = form_for  answer, remote: true do |f|
+      .form-group
+        = f.label :body, 'Answer'
+        = f.text_area :body, class: 'form-control'
+        = f.submit 'Save', class: 'btn btn-primary'

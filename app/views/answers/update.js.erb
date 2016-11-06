@@ -1,0 +1,18 @@
+<%if @answer.errors.present? %>
+    <% @answer.errors.full_messages.each do |message| %>
+        $('.answer-errors').html('<%= j message %>');
+    <% end %>
+<% else %>
+    $("#answer-<%= @answer.id%>").replaceWith('<%= j render @answer %>');
+    $('.edit-answer-link').on('click', function(e){
+        e.preventDefault();
+        var $this = $(this);
+        $('form#edit_answer_' + $this.data('answer')).show();
+        $this.hide();
+    });
+<% end %>
+
+
+
+
+

@@ -14,7 +14,9 @@ feature 'Destroy answers', %q{
     sign_in(answer.user)
     visit question_path answer.question
 
-    click_on 'Delete answer'
+    within '.answers' do
+      click_on 'Delete'
+    end
 
     expect(current_path).to eq question_path answer.question
     expect(page).to_not have_content answer.body
@@ -23,12 +25,16 @@ feature 'Destroy answers', %q{
   scenario 'Authenticated user can\'t destroy other user\'s answer' do
     sign_in(user)
     visit question_path answer.question
-    expect(page).to_not have_link 'Delete answer'
+    within '.answers' do
+      expect(page).to_not have_link 'Delete'
+    end
   end
 
   scenario 'Non-authenticated user can\'t destroy any answer' do
     visit question_path answer.question
-    expect(page).to_not have_link 'Delete answer'
+    within '.answers' do
+      expect(page).to_not have_link 'Delete'
+    end
   end
 
 end

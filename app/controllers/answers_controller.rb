@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:new, :create]
-  before_action :load_answer, only: [:destroy]
+  before_action :load_answer, only: [:update,:destroy]
 
   def new
     @answer = @question.answers.new
@@ -13,9 +13,11 @@ class AnswersController < ApplicationController
 
     if @answer.save
       flash[:notice] = 'Your answer successfully added.'
-    else
-      flash[:error] = @answer.errors.full_messages
     end
+  end
+
+  def update
+    @answer.update(answers_params)
   end
 
   def destroy

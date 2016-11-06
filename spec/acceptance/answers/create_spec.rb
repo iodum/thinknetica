@@ -27,7 +27,7 @@ feature 'Create answer', %q{
     fill_in 'Answer', with: ''
     click_on 'Add'
 
-    expect(page).to have_content 'Body can\'t be blank'
+    expect(page).to have_content 'Body is too short'
   end
 
   scenario 'Non-authenticated user create the answer' do
