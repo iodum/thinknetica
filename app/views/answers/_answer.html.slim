@@ -1,6 +1,12 @@
 div.answer-wrapper id="answer-#{answer.id}"
   .body
     = answer.body
+  - if answer.accepted?
+    .bg-success Accepted!
+  - else
+    - if user_signed_in? && current_user.author_of?(answer.question)
+      = link_to 'Accept', accept_answer_path(answer), method: :patch, remote: true, class: 'accept-answer-link btn btn-success btn-sm', data: {answer: answer.id}
+
   - if answer.persisted? && user_signed_in? && current_user.author_of?(answer)
     = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-danger btn-sm', role: 'button'
     = link_to 'Edit', '', remote: true, class: 'edit-answer-link btn btn-default btn-sm', data: {answer: answer.id}

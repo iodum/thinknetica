@@ -109,4 +109,41 @@ RSpec.describe AnswersController, type: :controller do
     end
   end
 
+  describe 'PATCH #accept' do
+    sign_in_user
+
+    context 'with valid attributes' do
+      let(:question_new) { create( :question, user: @user) }
+      let(:answer) { create( :answer, question: question_new) }
+      before do
+        patch :accept, params: { id: answer }, format: :js
+        answer.reload
+      end
+
+      it 'assings the requested answer to @answer' do
+        expect(assigns(:answer)).to eq answer
+      end
+
+      it 'change answer attributes' do
+        expect(answer.accepted).to eq true
+      end
+
+      it 'render update template ' do
+        expect(response).to render_template :accept
+      end
+    end
+
+    context 'accept by other user' do
+      let(:new_user) { create( :user ) }
+      let(:new_question) { create( :question, user: new_user ) }
+      let(:new_answer) { create( :answer, user: new_user, question: new_question ) }
+
+      it 'redirects to related question page' do
+        patch :accept,  params: { id: new_answer }, format: :js
+        new_answer.reload
+        expect(new_answer).to_not be_accepted
+      end
+    end
+  end
+
 end

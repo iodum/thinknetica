@@ -1,7 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:new, :create]
-  before_action :load_answer, only: [:update,:destroy]
+  before_action :load_answer, only: [:update,:destroy, :accept]
 
   def new
     @answer = @question.answers.new
@@ -25,6 +25,12 @@ class AnswersController < ApplicationController
   def destroy
     if current_user.author_of?(@answer)
       @answer.destroy
+    end
+  end
+
+  def accept
+    if current_user.author_of?(@answer.question)
+      @answer.accept
     end
   end
 
