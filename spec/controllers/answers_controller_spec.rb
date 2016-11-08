@@ -43,7 +43,7 @@ RSpec.describe AnswersController, type: :controller do
 
       it 're-renders new view' do
         post :create, params: { answer: attributes_for(:invalid_answer), question_id: question, format: :js }
-        expect(response).to render_template 'create'
+        expect(response).to render_template 'layouts/common/flash'
       end
     end
   end
@@ -103,8 +103,9 @@ RSpec.describe AnswersController, type: :controller do
       let(:answer) { create( :answer, question: question, user: new_user ) }
 
       it 'redirects to related question page' do
+        answer_before = answer
         process :update, method: :patch, params: { id: answer.id, answer: { body: 'new_body' } }, format: :js
-        expect(answer.body).to eq answer.body
+        expect(answer.body).to eq answer_before.body
       end
     end
   end

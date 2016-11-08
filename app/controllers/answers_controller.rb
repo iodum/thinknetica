@@ -1,7 +1,8 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :load_question, only: [:new, :create]
-  before_action :load_answer, only: [:update,:destroy, :accept]
+  before_action :load_answer, only: [:update, :destroy, :accept]
+  before_action :check_author, only: [:update, :destroy]
 
   def new
     @answer = @question.answers.new
@@ -11,26 +12,32 @@ class AnswersController < ApplicationController
     @answer = @question.answers.create(answers_params)
     @answer.user = current_user
 
-    if @answer.save
-      flash[:notice] = 'Your answer successfully added.'
+    unless @answer.save
+      flash[:error] = @answer.errors.full_messages
+      render 'layouts/common/flash'
     end
   end
 
   def update
-    if current_user.author_of?(@answer)
-      @answer.update(answers_params)
-    end
+      unless @answer.update(answers_params)
+        flash[:error] = @answer.errors.full_messages
+        render 'layouts/common/flash'
+      end
   end
 
   def destroy
-    if current_user.author_of?(@answer)
-      @answer.destroy
-    end
+      unless @answer.destroy
+        flash[:error] = @answer.errors.full_messages
+        render 'layouts/common/flash'
+      end
   end
 
   def accept
     if current_user.author_of?(@answer.question)
       @answer.accept
+    else
+      flash[:error] = "You haven't permission to update"
+      render 'layouts/common/flash'
     end
   end
 
@@ -46,5 +53,12 @@ class AnswersController < ApplicationController
 
   def answers_params
     params.required(:answer).permit(:body)
+  end
+
+  def check_author
+    unless current_user.author_of?(@answer)
+      flash[:error] = "You haven't permission to update"
+      render 'layouts/common/flash'
+    end
   end
 end

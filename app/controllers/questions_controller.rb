@@ -31,6 +31,9 @@ class QuestionsController < ApplicationController
   def update
     if @question.update(questions_params)
       redirect_to @question
+    else
+      flash[:error] = @question.errors.full_messages
+      render 'layouts/common/flash'
     end
   end
 

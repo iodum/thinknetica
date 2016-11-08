@@ -120,7 +120,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 're-renders edit view' do
-        expect(response).to render_template :update
+        expect(response).to render_template 'layouts/common/flash'
       end
     end
   end

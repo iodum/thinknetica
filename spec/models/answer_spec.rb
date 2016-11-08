@@ -10,14 +10,17 @@ RSpec.describe Answer, type: :model do
   describe '#accept' do
     let(:user) { create(:user) }
     let(:question) { create(:question, user: user) }
-    let!(:answer1) { create(:answer, question: question) }
-    let!(:answer2) { create(:answer, question: question) }
+    let!(:answer) { create(:answer, question: question) }
 
     it 'accept new answer' do
-      answer1.update!(accepted: true )
-      answer2.accept
-      expect(answer1.reload).to_not be_accepted
-      expect(answer2.reload).to be_accepted
+      answer.accept
+      expect(answer.reload).to be_accepted
+    end
+
+    it 'change accepting answer' do
+      answer2 =  create(:answer, question: question, accepted: true )
+      answer.accept
+      expect(answer.reload).to be_accepted
     end
   end
 end

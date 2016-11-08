@@ -9,7 +9,7 @@ class Answer < ApplicationRecord
 
   def accept
     transaction do
-      question.answers.where( accepted: true ).update_all(accepted: false)
+      question.answers.where(accepted: true).update_all(accepted: false)
       update!(accepted: true)
     end
   end

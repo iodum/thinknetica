@@ -1,10 +1,3 @@
-<% if flash.empty? %>
-    $('.flash-messages').html(' ');
-<% else %>
-    $('.flash-messages').html(' ').html('<%= j render 'layouts/flash' %>');
-    <% flash.clear %>
-<% end %>
-
 
 <% if @answer.errors.present? %>
     <% @answer.errors.full_messages.each do |message| %>
@@ -15,6 +8,3 @@
     $('textarea#answer_body').val('');
     $('.answer-errors').html('');
 <% end %>
-
-
-
