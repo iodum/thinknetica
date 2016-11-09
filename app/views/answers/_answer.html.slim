@@ -1,8 +1,8 @@
-div.answer-wrapper id="answer-#{answer.id}"
+div.answer-wrapper id="answer-#{answer.id}" class=('accepted' if answer.accepted?)
   .body
     = answer.body
   - if answer.accepted?
-    .bg-success Accepted!
+    .accepted-label.bg-success Accepted!
   - else
     - if user_signed_in? && current_user.author_of?(answer.question)
       = link_to 'Accept', accept_answer_path(answer), method: :patch, remote: true, class: 'accept-answer-link btn btn-success btn-sm', data: {answer: answer.id}
