@@ -111,7 +111,7 @@ RSpec.describe QuestionsController, type: :controller do
     end
 
     context 'with invalid attributes' do
-      before { patch :update, params: { id: question, question: { title: 'new_title', body: nil } } }
+      before { patch :update, params: { id: question, question: { title: 'new_title', body: nil } }, format: :js }
 
       it 'does not change question in the database' do
         question.reload
@@ -120,7 +120,7 @@ RSpec.describe QuestionsController, type: :controller do
       end
 
       it 're-renders edit view' do
-        expect(response).to render_template :edit
+        expect(response).to render_template 'layouts/common/flash'
       end
     end
   end

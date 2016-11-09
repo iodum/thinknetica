@@ -1,0 +1,9 @@
+<% if flash.empty? %>
+    $('.flash-messages').html(' ');
+<% else %>
+    $('.flash-messages').html(' ').html('<%= j render 'layouts/common/flash' %>');
+    setTimeout(function(){
+        $('.flash-messages').slideUp().html(' ').show();
+    },3000);
+    <% flash.clear %>
+<% end %>

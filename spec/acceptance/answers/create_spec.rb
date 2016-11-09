@@ -1,4 +1,4 @@
-require 'rails_helper'
+require 'acceptance/acceptance_helper'
 
 feature 'Create answer', %q{
   In order to help
@@ -19,7 +19,6 @@ feature 'Create answer', %q{
     within '.answers' do
       expect(page).to have_content data[:body]
     end
-    expect(page).to have_content 'Your answer successfully added.'
   end
 
   scenario 'Authenticated user create the answer with invalid data', js:true do
@@ -27,7 +26,7 @@ feature 'Create answer', %q{
     fill_in 'Answer', with: ''
     click_on 'Add'
 
-    expect(page).to have_content 'Body can\'t be blank'
+    expect(page).to have_content 'Body is too short'
   end
 
   scenario 'Non-authenticated user create the answer' do
