@@ -51,6 +51,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'slim-rails'
 gem 'devise'
 gem 'carrierwave'
+gem 'remotipart', '~> 1.3', '>= 1.3.1'
 
 group :test, :development do
   gem 'rspec-rails'

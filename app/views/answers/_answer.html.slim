@@ -1,6 +1,11 @@
 div.answer-wrapper id="answer-#{answer.id}" class=('accepted' if answer.accepted?)
   .body
     = answer.body
+  - if answer.attachments.exists?
+      h3 Attachments:
+      ul
+        - answer.attachments.each do |a|
+          li= link_to a.file.identifier, a.file.url, target: '_blank'
   - if answer.accepted?
     .accepted-label.bg-success Accepted!
   - else

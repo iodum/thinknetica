@@ -6,6 +6,7 @@ RSpec.describe Answer, type: :model do
   it { should validate_length_of(:body).is_at_least(5) }
   it { should belong_to(:user) }
   it { should validate_uniqueness_of(:accepted).scoped_to(:question_id) }
+  it { should accept_nested_attributes_for :attachments }
 
   describe '#accept' do
     let(:user) { create(:user) }
