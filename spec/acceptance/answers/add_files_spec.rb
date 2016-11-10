@@ -36,11 +36,11 @@ feature 'Add files to answer', %q{
     end
 
     scenario 'can add several files', js: true do
-      within all('.file-input').first do
+      within all('.nested-fields').first do
         attach_file 'File', "#{Rails.root}/spec/spec_helper.rb"
       end
       click_on 'Add file'
-      within all('.file-input').last do
+      within all('.nested-fields').last do
         attach_file 'File', "#{Rails.root}/spec/rails_helper.rb"
       end
       click_on 'Add'

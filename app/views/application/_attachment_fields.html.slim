@@ -1,3 +1,7 @@
-.form-group.file-input
-  = f.label :file
-  = f.file_field :file
+.form-group.nested-fields
+  - if f.object.persisted?
+    = f.object.file.identifier
+    = link_to_remove_association 'Delete', f, class: 'btn btn-xs btn-default'
+  - else
+    = f.label :file
+    = f.file_field :file

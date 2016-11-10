@@ -13,6 +13,12 @@ FactoryGirl.define do
         create_list(:answer, evaluator.answer_count, question: question)
       end
     end
+
+    factory :question_with_attachment do
+      after(:create) do |question|
+        create(:attachment, attachable: question)
+      end
+    end
   end
 
   factory :invalid_question, class: 'Question' do
