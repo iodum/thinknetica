@@ -2,10 +2,11 @@ div.answer-wrapper id="answer-#{answer.id}" class=('accepted' if answer.accepted
   .body
     = answer.body
   - if answer.attachments.exists?
-      h3 Attachments:
-      ul
-        - answer.attachments.each do |a|
-          li= link_to a.file.identifier, a.file.url, target: '_blank'
+      .attachments
+        h3 Attachments:
+        ul
+          - answer.attachments.each do |a|
+            li= link_to a.file.identifier, a.file.url, target: '_blank'
   - if answer.accepted?
     .accepted-label.bg-success Accepted!
   - else
@@ -15,8 +16,5 @@ div.answer-wrapper id="answer-#{answer.id}" class=('accepted' if answer.accepted
   - if answer.persisted? && user_signed_in? && current_user.author_of?(answer)
     = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-danger btn-sm', role: 'button'
     = link_to 'Edit', '', remote: true, class: 'edit-answer-link btn btn-default btn-sm', data: {answer: answer.id}
-    = form_for  answer, remote: true do |f|
-      .form-group
-        = f.label :body, 'Answer'
-        = f.text_area :body, class: 'form-control'
-        = f.submit 'Save', class: 'btn btn-primary'
+
+    = render 'answers/form_edit', answer: answer
