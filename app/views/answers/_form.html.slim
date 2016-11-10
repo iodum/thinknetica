@@ -4,9 +4,10 @@
     .answer-errors
     = f.text_area :body, class: 'form-control'
   p Attachments:
+
+  = f.fields_for :attachments do |a|
+    = render 'attachment_fields', f: a
   .form-group
-    = f.fields_for :attachments do |a|
-      = a.label :file
-      = a.file_field :file
+    = link_to_add_association 'Add file', f, :attachments
   div
     = f.submit 'Add', class: 'btn btn-primary'

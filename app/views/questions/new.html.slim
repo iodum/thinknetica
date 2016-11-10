@@ -9,9 +9,10 @@ h1 Задать вопрос
     = f.text_area :body, class: 'form-control'
 
   p Attachments:
+
+  = f.fields_for :attachments do |a|
+    = render 'attachment_fields', f: a
   .form-group
-    = f.fields_for :attachments do |a|
-      = render 'attachment_fields', f: a
     = link_to_add_association 'Add file', f, :attachments
   .form-group
     = f.submit 'Create', class: 'btn btn-default'
