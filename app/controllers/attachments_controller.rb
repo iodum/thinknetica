@@ -3,12 +3,12 @@ class AttachmentsController < ApplicationController
   before_action :load_attachment, only: [:destroy]
 
   def destroy
-      if current_user.author_of?(@attachment.attachable)
-        @attachment.destroy
-      else
-        flash[:error] = @attachment.errors.full_messages
-        render 'layouts/common/flash'
-      end
+    if current_user.author_of?(@attachment.attachable)
+      @attachment.destroy
+    else
+      flash[:error] = @attachment.errors.full_messages
+      render 'layouts/common/flash'
+    end
   end
 
   private

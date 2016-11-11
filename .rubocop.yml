@@ -17,3 +17,6 @@ Rails:
 
 Metrics/LineLength:
   Max: 100
+
+Style/GuardClause:
+  Enabled: false

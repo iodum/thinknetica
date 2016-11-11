@@ -19,17 +19,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-      unless @answer.update(answers_params)
-        flash[:error] = @answer.errors.full_messages
-        render 'layouts/common/flash'
-      end
+    unless @answer.update(answers_params)
+      flash[:error] = @answer.errors.full_messages
+      render 'layouts/common/flash'
+    end
   end
 
   def destroy
-      unless @answer.destroy
-        flash[:error] = @answer.errors.full_messages
-        render 'layouts/common/flash'
-      end
+    unless @answer.destroy
+      flash[:error] = @answer.errors.full_messages
+      render 'layouts/common/flash'
+    end
   end
 
   def accept
