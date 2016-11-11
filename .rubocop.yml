@@ -10,6 +10,7 @@ AllCops:
     - 'spec/**/*.rb'
     - 'db/**/*'
     - 'vendor/**/*'
+    - 'public/uploads/**/*'
   DisplayCopNames: true
   StyleGuideCopsOnly: true
 Rails:

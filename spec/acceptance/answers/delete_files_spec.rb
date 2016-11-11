@@ -15,38 +15,29 @@ feature 'Delete files', %q{
       visit question_path answer.question
     end
 
-    scenario 'Authenticated user delete own file', js: true  do
-      within '.answer-wrapper' do
-        expect(page).to have_selector '.glyphicon-remove'
+    describe 'in answer show view' do
+      scenario 'has link to delete own file', js: true  do
+        within '.answer-wrapper' do
+          expect(page).to have_selector '.glyphicon-remove'
+        end
+      end
+
+      scenario 'can delete own file', js: true  do
+        attachment = answer.attachments.first
+        within '.answer-wrapper .attachments' do
+          click_on 'delete'
+        end
+        expect(page).to_not have_link attachment.file.identifier, href: attachment.file.url
       end
     end
 
-    scenario 'Authenticated user delete own file', js: true  do
-      within '.answer-wrapper .attachments' do
-        click_on 'delete'
-      end
-
-      expect(page).to_not have_select '.answer-wrapper .attachments'
-    end
-
-    scenario 'Authenticated user delete own file', js: true  do
-      within '.answer-wrapper' do
-        click_on 'Edit'
-      end
-      within '.edit_answer' do
-        expect(page).to have_link 'Delete'
-      end
-    end
-
-    scenario 'Authenticated user delete own file', js: true  do
+    scenario 'has link to delete own file in answer edit view', js: true  do
       within '.answer-wrapper' do
         click_on 'Edit'
       end
       within '.edit_answer' do
         expect(page).to have_link 'Delete'
       end
-
-      expect(page).to_not have_select '.answer-wrapper .attachments'
     end
   end
 
