@@ -10,6 +10,7 @@ AllCops:
     - 'spec/**/*.rb'
     - 'db/**/*'
     - 'vendor/**/*'
+    - 'public/uploads/**/*'
   DisplayCopNames: true
   StyleGuideCopsOnly: true
 Rails:
@@ -17,3 +18,6 @@ Rails:
 
 Metrics/LineLength:
   Max: 100
+
+Style/GuardClause:
+  Enabled: false

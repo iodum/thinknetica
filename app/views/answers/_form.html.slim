@@ -3,5 +3,11 @@
     = f.label :body, 'Answer'
     .answer-errors
     = f.text_area :body, class: 'form-control'
+  p Attachments:
+
+  = f.fields_for :attachments do |a|
+    = render 'attachment_fields', f: a
+  .form-group
+    = link_to_add_association 'Add file', f, :attachments
   div
     = f.submit 'Add', class: 'btn btn-primary'

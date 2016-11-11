@@ -19,17 +19,17 @@ class AnswersController < ApplicationController
   end
 
   def update
-      unless @answer.update(answers_params)
-        flash[:error] = @answer.errors.full_messages
-        render 'layouts/common/flash'
-      end
+    unless @answer.update(answers_params)
+      flash[:error] = @answer.errors.full_messages
+      render 'layouts/common/flash'
+    end
   end
 
   def destroy
-      unless @answer.destroy
-        flash[:error] = @answer.errors.full_messages
-        render 'layouts/common/flash'
-      end
+    unless @answer.destroy
+      flash[:error] = @answer.errors.full_messages
+      render 'layouts/common/flash'
+    end
   end
 
   def accept
@@ -52,7 +52,7 @@ class AnswersController < ApplicationController
   end
 
   def answers_params
-    params.required(:answer).permit(:body)
+    params.required(:answer).permit(:body, attachments_attributes: [:file, :id, :_destroy])
   end
 
   def check_author

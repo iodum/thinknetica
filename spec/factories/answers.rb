@@ -4,6 +4,12 @@ FactoryGirl.define do
     question
     user
     accepted false
+
+    factory :answer_with_attachment do
+      after(:create) do |answer|
+        create(:attachment, attachable: answer)
+      end
+    end
   end
 
   factory :invalid_answer, class: 'Answer' do

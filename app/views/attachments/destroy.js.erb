@@ -1,0 +1,8 @@
+$li = $('#attachment-<%= @attachment.id %>');
+$ul = $li.parents('ul');
+$attachment = $ul.parents('.attachments');
+$li.remove();
+
+if ($ul.find('li').length == 0) {
+    $attachment.remove();
+}
