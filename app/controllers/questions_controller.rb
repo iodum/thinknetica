@@ -9,8 +9,6 @@ class QuestionsController < ApplicationController
   def show
     @answer = Answer.new
     @answer.attachments.new
-    # @answer = @question.answers.build
-    # @answer.attachments.build
   end
 
   def new

@@ -1,0 +1,7 @@
+$li = $('#attachment-<%= @attachment.id %>');
+$ul = $li.parents('ul');
+$li.remove();
+
+if ($ul.find('li').length == 0) {
+    $('.question-wrapper .attachments').remove();
+}
