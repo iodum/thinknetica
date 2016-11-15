@@ -7,6 +7,7 @@ RSpec.describe Answer, type: :model do
   it { should belong_to(:user) }
   it { should validate_uniqueness_of(:accepted).scoped_to(:question_id) }
   it { should accept_nested_attributes_for :attachments }
+  it { should have_many(:votes).dependent(:destroy) }
 
   describe '#accept' do
     let(:user) { create(:user) }
