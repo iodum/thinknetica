@@ -1,4 +1,5 @@
 .question-wrapper {
+    position: relative;
     padding: 15px 10px;
     border: 1px #eee solid;
     border-radius: 5px;
@@ -19,5 +20,18 @@
 
     & + .btn {
         margin-left: 10px;
+    }
+}
+.rating-wrapper {
+    padding: 10px 0;
+
+    .vote-link {
+        min-width: 20px;
+        margin: 0 5px;
+    }
+
+    .rating-result {
+        line-height: 1;
+        padding: 0 5px;
     }
 }

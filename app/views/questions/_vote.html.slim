@@ -1,0 +1,7 @@
+.rating-wrapper
+  - if user_signed_in? && !current_user.author_of?(resource)
+    = link_to '+', vote_up_question_path(resource), method: :patch,remote: true, class: "vote-link v-up btn btn-default btn-#{ resource.has_votes?(current_user, 1) ? 'success' : '' } btn-xs"
+    span.rating-result= resource.rating
+    = link_to '-', vote_down_question_path(resource), method: :patch, remote: true, class: "vote-link v-down btn btn-default btn-#{ resource.has_votes?(current_user, -1) ? 'success' : '' } btn-xs"
+  - else
+    span.rating-result = resource.rating
