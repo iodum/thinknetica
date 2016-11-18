@@ -15,12 +15,13 @@ function ready() {
 
     $('.vote-link').on('ajax:success',function(e, data){
         e.preventDefault();
-        var $this = $(this);
-        $('.vote-link').removeClass('btn-success');
+        var $this = $(this),
+            $wrap = $this.parent('.rating-wrapper');
+        $wrap.find('.vote-link').removeClass('btn-success');
         if (data.value != 0) {
             $this.addClass('btn-success');
         }
-        $this.parent('.rating-wrapper').find('.rating-result').html(data.rating);
+        $wrap.find('.rating-result').html(data.rating);
 
 
     }).on('ajax:error', function(e, xhr) {
