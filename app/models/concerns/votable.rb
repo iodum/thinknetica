@@ -3,7 +3,6 @@ module Votable
 
   included do
     has_many :votes, as: :votable, dependent: :destroy
-    belongs_to :user
   end
 
   def vote_up(user)
