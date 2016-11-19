@@ -18,6 +18,11 @@ shared_examples_for 'votable' do
       expect(model.rating).to eq 0
     end
 
+    it 'if author try to vote' do
+      result = model.vote_up(model.user)
+      expect(result).to eq({success: false, error: 'You can\'t vote, you is owner', rating: 0, value: 0})
+    end
+
   end
 
   describe 'other user' do
@@ -51,6 +56,17 @@ shared_examples_for 'votable' do
         model.reload
         expect(model.rating).to eq 3
       end
+
+      it 'if user has positive vote' do
+        create(:vote, votable: model, user: user)
+        result = model.vote_up(user)
+        expect(result).to eq({success: true, rating: 0, value: 0})
+      end
+
+      it 'if user has not vote' do
+        result = model.vote_up(user)
+        expect(result).to eq({success: true, rating: 1, value: 1})
+      end
     end
 
     context 'vote down' do
@@ -74,6 +90,17 @@ shared_examples_for 'votable' do
         model.vote_up(user)
         model.reload
         expect(model.rating).to eq(3)
+      end
+
+      it 'if user has negative vote' do
+        create(:vote, votable: model, user: user, value: -1)
+        result = model.vote_down(user)
+        expect(result).to eq({success: true, rating: 0, value: 0})
+      end
+
+      it 'if user has not vote' do
+        result = model.vote_down(user)
+        expect(result).to eq({success: true, rating: -1, value: -1})
       end
     end
 
@@ -99,22 +126,22 @@ shared_examples_for 'votable' do
 
   describe 'user has_votes?' do
     it 'has any vote at start' do
-      expect(model.has_votes?(user)).to eq(false)
+      expect(model).to_not have_votes(user)
     end
 
     it 'has any vote' do
       create(:vote, votable: model, user: user)
-      expect(model.has_votes?(user)).to eq(true)
+      expect(model).to have_votes(user)
     end
 
     it 'has positive vote' do
       create(:vote, votable: model, user: user)
-      expect(model.has_votes?(user, 1)).to eq(true)
+      expect(model).to have_votes(user, 1)
     end
 
     it 'has negative vote' do
       create(:vote, votable: model, user: user, value: -1)
-      expect(model.has_votes?(user, -1)).to eq(true)
+      expect(model).to have_votes(user, -1)
     end
   end
 

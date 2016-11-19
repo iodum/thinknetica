@@ -32,9 +32,9 @@ module Votable
 
   def add_vote(user, value)
     val = 0
-    if user.id == self.user_id
+    if user.author_of?(self)
       error = 'You can\'t vote, you is owner'
-      {success: false, error: error, rating: rating, value: val}
+      return {success: false, error: error, rating: rating, value: val}
     elsif has_votes?(user)
       cancel(user)
     else
