@@ -1,11 +1,18 @@
 require 'rails_helper'
+require_relative 'concerns/votable'
 
 RSpec.describe Answer, type: :model do
+  it_behaves_like 'votable'
+
+  it { should belong_to(:user) }
   it { should belong_to(:question) }
+
+  it { should have_many(:votes).dependent(:destroy) }
+
   it { should validate_presence_of(:body) }
   it { should validate_length_of(:body).is_at_least(5) }
-  it { should belong_to(:user) }
   it { should validate_uniqueness_of(:accepted).scoped_to(:question_id) }
+
   it { should accept_nested_attributes_for :attachments }
 
   describe '#accept' do

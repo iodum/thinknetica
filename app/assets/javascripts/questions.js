@@ -12,6 +12,23 @@ function ready() {
         $('form#edit_answer_' + $this.data('answer')).show();
         $this.hide();
     });
+
+    $('.vote-link').on('ajax:success',function(e, data){
+        e.preventDefault();
+        var $this = $(this),
+            $wrap = $this.parent('.rating-wrapper');
+        $wrap.find('.vote-link').removeClass('btn-success');
+        if (data.value != 0) {
+            $this.addClass('btn-success');
+        }
+        $wrap.find('.rating-result').html(data.rating);
+
+
+    }).on('ajax:error', function(e, xhr) {
+        console.log(xhr.responseJSON);
+    });
+
+
 }
 
 $( document ).ready( ready );
