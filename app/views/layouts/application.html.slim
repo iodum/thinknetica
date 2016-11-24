@@ -7,8 +7,9 @@ html lang="en"
     title= "Thinknetica"
     = csrf_meta_tags
 
-    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag "application"
+    = action_cable_meta_tag
 
   body
     .navbar.collapse.navbar-collapse

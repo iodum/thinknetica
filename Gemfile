@@ -53,6 +53,8 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart', '~> 1.3', '>= 1.3.1'
 gem 'cocoon'
+gem 'skim'
+gem 'gon'
 
 group :test, :development do
   gem 'rspec-rails'
