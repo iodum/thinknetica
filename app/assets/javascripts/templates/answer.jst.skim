@@ -1,0 +1,48 @@
+div.answer-wrapper id="answer-#{@answer.id}"
+  .body
+    = @answer.body
+  - if @attachments.length > 0
+      .attachments
+        h3 Attachments:
+        ul
+          - for attachment in @attachments
+            li id="attachment-#{attachment.id}"
+              a target="_blank" href="#{attachment.file.url}" #{attachment.file.url.substring(attachment.file.url.lastIndexOf('/')+1)}
+              - if gon.user? && gon.user.id == @answer.user_id
+                a.glyphicon.glyphicon-remove.text-danger data-remote="true" rel="nofollow" data-method="delete" href="/attachments/#{attachment.id}" delete
+
+  .rating-wrapper
+    - if gon.user? && gon.user.id != @answer.user_id
+      a.vote-link.v-up.btn.btn-default.btn-xs data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/vote_up" +
+      span.rating-result 0
+      a.vote-link.v-down.btn.btn-default.btn-xs data-remote="true" rel="nofollow" data-method="patch" href="/answers/#{@answer.id}/vote_down" -
+    - else
+      span.rating-result 0
+
+  - if @answer.accepted == true
+    .accepted-label.bg-success Accepted!
+  - else
+    - if gon.user? && gon.user.id == @question.user_id
+      a.accept-answer-link.btn.btn-success.btn-sm data-answer="#{@answer.id}" data-remote="true" data-method="patch" href="/answers/#{@answer.id}/accept" Accept
+
+    - if gon.user? && gon.user.id == @answer.user_id
+      a.btn.btn-danger.btn-sm role="button" data-remote="true" data-method="delete" href="/answers/#{@answer.id}" Delete
+      a.edit-answer-link.btn.btn-default.btn-sm role="button" data-remote="true" href="" data-answer="#{@answer.id}" Edit
+
+  form.edit_answer id="edit_answer_#{@answer.id}" action="/answers/#{@answer.id}" accept-charset="UTF-8" data-remote="true" method="post"
+    input name="utf8" type="hidden" value="✓"
+    input type="hidden" name="_method" value="patch"
+    div.form-group
+      label for="answer_body" Answer
+      textarea.form-control name="answer[body]" id="answer_body"= @answer.body
+
+      - i = 0
+      - for attachment in @attachments
+        .nested_fields
+          .form-group.nested-fields = attachment.file.url.substring(attachment.file.url.lastIndexOf('/')+1)
+          input type="hidden" value="false" name="answer[attachments_attributes][#{i}][_destroy]" id="answer_attachments_attributes_#{i}__destroy"
+          a.btn.btn-xs.btn-default.remove_fields.existing href="#" Delete
+        input type="hidden" value="#{attachment.id}" name="answer[attachments_attributes][#{i}][id]" id="answer_attachments_attributes_#{i}_id"
+        - i++
+
+      input.btn.btn-primary type="submit" name="commit" value="Save" data-disable-with="Save"

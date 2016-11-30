@@ -6,6 +6,8 @@ class AnswersController < ApplicationController
   before_action :load_answer, only: [:update, :destroy, :accept]
   before_action :check_author, only: [:update, :destroy]
 
+  after_action :publish_answer, only: [:create]
+
   def new
     @answer = @question.answers.new
   end
@@ -62,5 +64,19 @@ class AnswersController < ApplicationController
       flash[:error] = "You haven't permission to update"
       render 'layouts/common/flash'
     end
+  end
+
+  def publish_answer
+    return if @answer.errors.any?
+    ActionCable.server.broadcast(
+      "question_#{@question.id}",
+      ApplicationController.render(
+        json: {
+          answer: @answer,
+          question: @question,
+          attachments: @answer.attachments
+        }
+      )
+    )
   end
 end

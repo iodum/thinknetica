@@ -43,9 +43,7 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    if current_user.author_of?(@question)
-      @question.destroy
-    end
+    @question.destroy if current_user.author_of?(@question)
     redirect_to questions_path
   end
 
@@ -66,7 +64,7 @@ class QuestionsController < ApplicationController
       'questions',
       ApplicationController.render(
         partial: 'questions/question',
-        locals: {question: @question}
+        locals: { question: @question }
       )
     )
   end

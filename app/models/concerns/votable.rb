@@ -34,7 +34,7 @@ module Votable
     val = 0
     if user.author_of?(self)
       error = 'You can\'t vote, you is owner'
-      return {success: false, error: error, rating: rating, value: val}
+      return { success: false, error: error, rating: rating, value: val }
     elsif has_votes?(user)
       cancel(user)
     else
@@ -42,7 +42,7 @@ module Votable
       val = value
     end
 
-    {success: true, rating: rating, value: val}
+    { success: true, rating: rating, value: val }
 
   end
 

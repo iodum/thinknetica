@@ -14,6 +14,7 @@ function ready() {
     });
 
     $('.vote-link').on('ajax:success',function(e, data){
+
         e.preventDefault();
         var $this = $(this),
             $wrap = $this.parent('.rating-wrapper');
@@ -26,16 +27,6 @@ function ready() {
 
     }).on('ajax:error', function(e, xhr) {
         console.log(xhr.responseJSON);
-    });
-
-    App.cable.subscriptions.create('QuestionsChannel', {
-        connected: function() {
-            console.log('Connected');
-            this.perform('follow');
-        },
-        received: function(data) {
-            $('.questions-list').append(data);
-        }
     });
 
 }

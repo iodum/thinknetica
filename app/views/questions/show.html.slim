@@ -1,5 +1,5 @@
 p= link_to 'К списку вопросов', questions_path
-.question-wrapper id="question-#{@question.id}"
+.question-wrapper id="question-#{@question.id}" data-id="#{@question.id}"
   h2= @question.title
   p= @question.body
   - if @question.attachments.exists?
