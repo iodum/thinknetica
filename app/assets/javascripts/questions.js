@@ -13,6 +13,13 @@ function ready() {
         $this.hide();
     });
 
+    $('.edit-comment-link').on('click', function(e){
+        e.preventDefault();
+        var $this = $(this);
+        $this.parents('.comments-wrapper').find('form').show();
+        $this.hide();
+    });
+
     $('.vote-link').on('ajax:success',function(e, data){
 
         e.preventDefault();

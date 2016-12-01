@@ -6,6 +6,7 @@ RSpec.describe User do
   it { should have_many(:questions) }
   it { should have_many(:answers) }
   it { should have_many(:votes) }
+  it { should have_many(:comments) }
 
   describe 'author_of?' do
     let(:user) { create(:user) }
