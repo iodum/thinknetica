@@ -1,0 +1,15 @@
+.comments-wrapper
+  - if user_signed_in?
+    div
+      = link_to 'Add comment', '', class: 'edit-comment-link'
+      = form_for [resource, resource.comments.build], remote: true do |f|
+        .form-group
+          .comment-errors
+          .form-group
+            = f.label :text, 'Your comment'
+          .form-group
+            = f.text_area :text, class: 'form-control'
+          = f.submit 'Add', class: 'btn btn-primary'
+
+  - if resource.comments.present?
+    = render resource.comments

@@ -1,8 +1,10 @@
 require 'rails_helper'
 require_relative 'concerns/votable'
+require_relative 'concerns/commentable'
 
 RSpec.describe Question, type: :model do
   it_behaves_like 'votable'
+  it_behaves_like 'commentable'
 
   it { should have_many(:answers).dependent(:destroy) }
   it { should have_many(:attachments).dependent(:destroy) }

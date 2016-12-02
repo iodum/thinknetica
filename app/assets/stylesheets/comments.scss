@@ -1,0 +1,22 @@
+.comments-wrapper {
+    font-size: 12px;
+    padding: 10px 0;
+    border-top: 1px solid #eee;
+    margin: 20px 0 0;
+
+    .comment {
+        display: inline-block;
+        padding: 10px 0;
+        text-align: left;
+        width: 80%;
+        border-top: 1px #eee solid;
+    }
+
+    .new_comment {
+        display: none;
+    }
+    .edit-comment-link {
+        display: inline-block;
+        margin: 0 0 10px;
+    }
+}

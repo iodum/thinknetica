@@ -6,11 +6,11 @@ module Voted
   end
 
   def vote_up
-    rendering( @votable.vote_up(current_user) )
+    rendering(@votable.vote_up(current_user))
   end
 
   def vote_down
-    rendering( @votable.vote_down(current_user) )
+    rendering(@votable.vote_down(current_user))
   end
 
   private
