@@ -2,15 +2,11 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:new, :create]
+  before_action :load_question, only: [:create]
   before_action :load_answer, only: [:update, :destroy, :accept]
   before_action :check_author, only: [:update, :destroy]
 
   after_action :publish_answer, only: [:create]
-
-  def new
-    @answer = @question.answers.new
-  end
 
   def create
     @answer = @question.answers.create(answers_params)

@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   root 'questions#index'
 
   resources :questions, concerns: [:votable, :commentable] do
-    resources :answers, only: [:new, :create, :edit, :update, :destroy], concerns: [:votable, :commentable], shallow: true do
+    resources :answers, only: [:create, :edit, :update, :destroy], concerns: [:votable, :commentable], shallow: true do
       patch :accept, on: :member
     end
   end
