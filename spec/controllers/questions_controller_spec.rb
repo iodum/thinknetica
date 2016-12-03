@@ -32,10 +32,6 @@ RSpec.describe QuestionsController, type: :controller do
       expect(assigns(:answer)).to be_a_new(Answer)
     end
 
-    it 'build new attachment for answer' do
-      expect(assigns(:answer).attachments.first).to be_a_new(Attachment)
-    end
-
     it 'renders show view' do
       expect(response).to render_template :show
     end
@@ -48,10 +44,6 @@ RSpec.describe QuestionsController, type: :controller do
 
     it 'assings a new question to @question' do
       expect(assigns(:question)).to be_a_new(Question)
-    end
-
-    it 'build new attachment for question' do
-      expect(assigns(:question).attachments.first).to be_a_new(Attachment)
     end
 
     it 'renders new view' do
@@ -103,21 +95,23 @@ RSpec.describe QuestionsController, type: :controller do
     sign_in_user
 
     context 'with valid attributes' do
+      let(:user_question) { create(:question, user: @user)}
+
       it 'assings the requested question to @question' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
-        expect(assigns(:question)).to eq question
+        patch :update, params: { id: user_question, question: attributes_for(:question) }
+        expect(assigns(:question)).to eq user_question
       end
 
       it 'change question attributes' do
-        patch :update, params: { id: question, question: { title: 'new_title', body: 'new_body' } }
-        question.reload
-        expect(question.title).to eq 'new_title'
-        expect(question.body).to eq 'new_body'
+        patch :update, params: { id: user_question, question: { title: 'new_title', body: 'new_body' } }
+        user_question.reload
+        expect(user_question.title).to eq 'new_title'
+        expect(user_question.body).to eq 'new_body'
       end
 
       it 'redirects to updated question view' do
-        patch :update, params: { id: question, question: attributes_for(:question) }
-        expect(response).to redirect_to question
+        patch :update, params: { id: user_question, question: attributes_for(:question) }
+        expect(response).to redirect_to user_question
       end
     end
 
@@ -128,10 +122,6 @@ RSpec.describe QuestionsController, type: :controller do
         question.reload
         expect(question.title).to eq question.title
         expect(question.body).to eq question.body
-      end
-
-      it 're-renders edit view' do
-        expect(response).to render_template 'layouts/common/flash'
       end
     end
   end

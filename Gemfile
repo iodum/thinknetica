@@ -55,6 +55,7 @@ gem 'remotipart', '~> 1.3', '>= 1.3.1'
 gem 'cocoon'
 gem 'skim'
 gem 'gon'
+gem 'responders', '~> 2.0'
 
 group :test, :development do
   gem 'rspec-rails'

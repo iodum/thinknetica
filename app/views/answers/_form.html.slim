@@ -5,7 +5,7 @@
     = f.text_area :body, class: 'form-control'
   p Attachments:
 
-  = f.fields_for :attachments do |a|
+  = f.fields_for :attachments, @answer.attachments.build do |a|
     = render 'attachment_fields', f: a
   .form-group
     = link_to_add_association 'Add file', f, :attachments

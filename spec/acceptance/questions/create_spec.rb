@@ -31,7 +31,7 @@ feature 'Create question', %q{
     fill_in 'Body', with: 'Question'
     click_on 'Create'
 
-    expect(page).to have_content 'Title can\'t be blank'
+    expect(page).to have_content 'Question could not be created'
 
   end
 
