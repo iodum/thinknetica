@@ -30,11 +30,6 @@ RSpec.describe AnswersController, type: :controller do
       it 'does not save the new answer in the database' do
         expect { post :create, params: { answer: attributes_for(:invalid_answer), question_id: question, format: :js } }.to_not change(Answer, :count)
       end
-
-      it 're-renders new view' do
-        post :create, params: { answer: attributes_for(:invalid_answer), question_id: question, format: :js }
-        expect(response).to render_template 'layouts/common/flash'
-      end
     end
   end
 

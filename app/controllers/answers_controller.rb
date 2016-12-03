@@ -2,43 +2,29 @@ class AnswersController < ApplicationController
   include Voted
 
   before_action :authenticate_user!, except: [:index, :show]
-  before_action :load_question, only: [:create]
   before_action :load_answer, only: [:update, :destroy, :accept]
-  before_action :check_author, only: [:update, :destroy]
 
   after_action :publish_answer, only: [:create]
 
-  def create
-    @answer = @question.answers.create(answers_params)
-    @answer.user = current_user
+  respond_to :js
 
-    unless @answer.save
-      flash[:error] = @answer.errors.full_messages
-      render 'layouts/common/flash'
-    end
+  def create
+    @question = Question.find(params[:question_id])
+    respond_with(@answer = @question.answers.create(answers_params.merge(user: current_user)))
   end
 
   def update
-    unless @answer.update(answers_params)
-      flash[:error] = @answer.errors.full_messages
-      render 'layouts/common/flash'
-    end
+    @answer.update(answers_params) if current_user.author_of?(@answer)
+    respond_with(@answer)
   end
 
   def destroy
-    unless @answer.destroy
-      flash[:error] = @answer.errors.full_messages
-      render 'layouts/common/flash'
-    end
+    respond_with(@answer.destroy) if current_user.author_of?(@answer)
   end
 
   def accept
-    if current_user.author_of?(@answer.question)
-      @answer.accept
-    else
-      flash[:error] = "You haven't permission to update"
-      render 'layouts/common/flash'
-    end
+    @answer.accept if current_user.author_of?(@answer.question)
+    respond_with(@answer)
   end
 
   private
@@ -47,19 +33,8 @@ class AnswersController < ApplicationController
     @answer = Answer.find(params[:id])
   end
 
-  def load_question
-    @question = Question.find(params[:question_id])
-  end
-
   def answers_params
     params.required(:answer).permit(:body, attachments_attributes: [:file, :id, :_destroy])
-  end
-
-  def check_author
-    unless current_user.author_of?(@answer)
-      flash[:error] = "You haven't permission to update"
-      render 'layouts/common/flash'
-    end
   end
 
   def publish_answer
