@@ -9,11 +9,11 @@ RSpec.describe AttachmentsController, type: :controller do
       before { question }
 
       it 'deletes question' do
-        expect { delete :destroy, params: { id: question.attachments.first, format: true } }.to change(question.attachments, :count).by(-1)
+        expect { delete :destroy, params: { id: question.attachments.first, format: :js } }.to change(question.attachments, :count).by(-1)
       end
 
       it 'redirect to question view' do
-        delete :destroy, params: { id: question.attachments.first, format: true }
+        delete :destroy, params: { id: question.attachments.first, format: :js }
         expect(response).to render_template :destroy
       end
     end
@@ -23,7 +23,7 @@ RSpec.describe AttachmentsController, type: :controller do
       before { question_other }
 
       it 'deletes question' do
-        expect { delete :destroy, params: { id: question_other.attachments.first, format: true } }.to_not change(Attachment, :count)
+        expect { delete :destroy, params: { id: question_other.attachments.first, format: :js } }.to_not change(Attachment, :count)
       end
     end
   end

@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    respond_with( @question = Question.new )
+    respond_with(@question = Question.new)
   end
 
   def create
