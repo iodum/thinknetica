@@ -24,11 +24,6 @@ RSpec.describe CommentsController, type: :controller do
       it 'does not save the new answer in the database' do
         expect { post :create, params: { comment: attributes_for(:invalid_comment), question_id: question, format: :js } }.to_not change(Comment, :count)
       end
-
-      it 're-renders new view' do
-        post :create, params: { comment: attributes_for(:invalid_comment), question_id: question, format: :js }
-        expect(response).to render_template 'layouts/common/flash'
-      end
     end
   end
 
@@ -49,11 +44,6 @@ RSpec.describe CommentsController, type: :controller do
     context 'with invalid attributes' do
       it 'does not save the new answer in the database' do
         expect { post :create, params: { comment: attributes_for(:invalid_comment), answer_id: answer, format: :js } }.to_not change(Comment, :count)
-      end
-
-      it 're-renders new view' do
-        post :create, params: { comment: attributes_for(:invalid_comment), answer_id: answer, format: :js }
-        expect(response).to render_template 'layouts/common/flash'
       end
     end
   end

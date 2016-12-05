@@ -1,18 +1,13 @@
 class CommentsController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_commentable, only: [ :create]
+  before_action :load_commentable, only: [:create]
 
   after_action :publish_comment, only: [:create]
 
+  respond_to :js
 
   def create
-    @comment = @commentable.comments.create(comment_params)
-    @comment.user = current_user
-
-    unless @comment.save
-      flash[:error] = @comment.errors.full_messages
-      render 'layouts/common/flash'
-    end
+    respond_with(@comment = @commentable.comments.create(comment_params.merge(user: current_user)))
   end
 
   private

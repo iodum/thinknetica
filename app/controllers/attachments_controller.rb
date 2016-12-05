@@ -2,13 +2,10 @@ class AttachmentsController < ApplicationController
   before_action :authenticate_user!
   before_action :load_attachment, only: [:destroy]
 
+  respond_to :js
+
   def destroy
-    if current_user.author_of?(@attachment.attachable)
-      @attachment.destroy
-    else
-      flash[:error] = @attachment.errors.full_messages
-      render 'layouts/common/flash'
-    end
+    respond_with(@attachment.destroy) if current_user.author_of?(@attachment.attachable)
   end
 
   private

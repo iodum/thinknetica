@@ -2,7 +2,7 @@
   .form-group
     = f.label :body, 'Answer'
     = f.text_area :body, class: 'form-control'
-    = f.fields_for :attachments do |a|
+    = f.fields_for :attachments, answer.attachments do |a|
       = render 'attachment_fields', f: a
 
     = f.submit 'Save', class: 'btn btn-primary'

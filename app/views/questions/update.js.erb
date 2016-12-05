@@ -3,5 +3,5 @@
         $('.question-errors').html('<%= j message %>');
     <% end %>
 <% else %>
-    $("#question-<%= @question.id%>").replaceWith('<%= j render @question %>');
+    $("#question-<%= @question.id%>").replaceWith('<%= j render 'questions/detail', question: @question %>');
 <% end %>

@@ -10,7 +10,7 @@ h1 Задать вопрос
 
   p Attachments:
 
-  = f.fields_for :attachments do |a|
+  = f.fields_for :attachments, @question.attachments.new do |a|
     = render 'attachment_fields', f: a
   .form-group
     = link_to_add_association 'Add file', f, :attachments
