@@ -50,6 +50,9 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem 'slim-rails'
 gem 'devise'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
 gem 'carrierwave'
 gem 'remotipart', '~> 1.3', '>= 1.3.1'
 gem 'cocoon'

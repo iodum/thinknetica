@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :comments, shallow: true, only: [:create]
   end
 
-  devise_for :users
+  devise_for :users, controllers: { :omniauth_callbacks => 'omniauth_callbacks' }
   root 'questions#index'
 
   resources :questions, concerns: [:votable, :commentable] do
