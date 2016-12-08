@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'capybara/email/rspec'
 
 RSpec.configure do |config|
   Capybara.server = :puma
@@ -6,6 +7,8 @@ RSpec.configure do |config|
   Capybara.default_max_wait_time  = 5
 
   config.include AcceptanceHelper, type: :feature
+  config.include OmniauthMacros, type: :feature
+  OmniAuth.config.test_mode = true
 
   config.use_transactional_fixtures = false
 

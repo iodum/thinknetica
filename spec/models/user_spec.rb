@@ -21,6 +21,14 @@ RSpec.describe User do
     end
   end
 
+  describe '.get_email' do
+    let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }
+
+    it 'returns temp email for user' do
+      expect(User.get_email(auth)).to eq 'temp_123456@facebook.com'
+    end
+  end
+
   describe '.find_for_oauth' do
     let!(:user) { create(:user) }
     let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456') }

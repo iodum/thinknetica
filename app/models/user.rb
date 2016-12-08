@@ -1,9 +1,11 @@
 class User < ApplicationRecord
+  before_create :skip_confirmation!
+
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and
-  devise :database_authenticatable, :registerable,
+  # :lockable, :timeoutable and
+  devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :omniauthable, omniauth_providers: [:facebook]
+         :omniauthable, omniauth_providers: [:facebook, :twitter]
 
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
@@ -16,23 +18,28 @@ class User < ApplicationRecord
   end
 
   def self.find_for_oauth(auth)
+    return nil if (auth.blank? || auth.provider.blank? || auth.uid.blank?)
+
     authorization = Authorization.where(provider: auth.provider, uid: auth.uid.to_s).first
     return authorization.user if authorization
 
-    email = auth.info[:email]
+    email = auth.info[:email].blank? ? get_email(auth) : auth.info[:email]
     user = User.where(email: email).first
-    if user
-      user.create_authorization(auth)
-    else
+
+    unless user
       password = Devise.friendly_token[0, 20]
       user = User.create!(email: email, password: password, password_confirmation: password)
-      user.create_authorization(auth)
     end
 
+    user.create_authorization(auth)
     user
   end
 
   def create_authorization(auth)
-    self.authorizations.create(provider: auth.provider, uid: auth.uid)
+    authorizations.create(provider: auth.provider, uid: auth.uid)
+  end
+
+  def self.get_email(auth)
+    "temp_#{auth.uid}@#{auth.provider}.com"
   end
 end
