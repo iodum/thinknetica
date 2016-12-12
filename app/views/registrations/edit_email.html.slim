@@ -1,0 +1,7 @@
+.signup-wrapper
+  = form_for @user, url: update_user_email_path, method: :post do |f|
+    .form-group
+      .form-group
+        = f.label 'Enter your e-mail'
+        = f.text_field :email, class: 'form-control', :autofocus => true
+        = f.submit 'Finish sign up', class: 'btn btn-primary'

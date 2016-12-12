@@ -9,7 +9,13 @@ Rails.application.routes.draw do
     resources :comments, shallow: true, only: [:create]
   end
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations' }
+
+  as :user do
+    get 'users/edit_email', to: 'registrations#edit_email', as: :edit_user_email
+    post 'users/update_email', to: 'registrations#update_email', as: :update_user_email
+  end
+
   root 'questions#index'
 
   resources :questions, concerns: [:votable, :commentable] do
