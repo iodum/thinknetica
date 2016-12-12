@@ -8,13 +8,14 @@
         - question.attachments.each do |a|
           li id="attachment-#{a.id}"
             = link_to a.file.identifier, a.file.url, target: '_blank'
-            - if user_signed_in? && current_user.author_of?(question)
+            - if can? :destroy, a
               = link_to 'delete', attachment_path(a), method: :delete, remote: true, class: 'glyphicon glyphicon-remove text-danger'
 
   = render 'questions/vote', resource: question
 
-  - if user_signed_in? && current_user.author_of?(question)
+  - if can? :destroy, question
     = link_to 'Delete', question, method: :delete, class: 'btn btn-danger', role: 'button'
+  - if can? :update, question
     = link_to 'Edit', '', remote: true, class: 'edit-question-link btn btn-default', data: {question: question.id}
     = render 'form'
 

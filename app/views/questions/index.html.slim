@@ -5,4 +5,5 @@ h1 Список вопросов
     = render question
 
 hr
-p= link_to 'Ask question', new_question_path, class: 'btn btn-success'
+- if can? :create, Question
+  p= link_to 'Ask question', new_question_path, class: 'btn btn-success'

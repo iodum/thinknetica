@@ -1,5 +1,5 @@
 .comments-wrapper
-  - if user_signed_in?
+  - if can? :create, Comment
     div
       = link_to 'Add comment', '', class: 'edit-comment-link'
       = form_for [resource, resource.comments.build], remote: true do |f|

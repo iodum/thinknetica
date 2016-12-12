@@ -8,7 +8,7 @@ div.answer-wrapper id="answer-#{answer.id}" class=('accepted' if answer.accepted
           - answer.attachments.each do |a|
             li id="attachment-#{a.id}"
               = link_to a.file.identifier, a.file.url, target: '_blank'
-              - if user_signed_in? && current_user.author_of?(answer)
+              - if can? :destroy, a
                 = link_to 'delete', attachment_path(a), method: :delete, remote: true, class: 'glyphicon glyphicon-remove text-danger'
 
   = render 'questions/vote', resource: answer
@@ -16,11 +16,12 @@ div.answer-wrapper id="answer-#{answer.id}" class=('accepted' if answer.accepted
   - if answer.accepted?
     .accepted-label.bg-success Accepted!
   - else
-    - if user_signed_in? && current_user.author_of?(answer.question)
+    - if can? :accept, answer
       = link_to 'Accept', accept_answer_path(answer), method: :patch, remote: true, class: 'accept-answer-link btn btn-success btn-sm', data: {answer: answer.id}
 
-  - if answer.persisted? && user_signed_in? && current_user.author_of?(answer)
+  - if can? :destroy, answer
     = link_to 'Delete', answer, method: :delete, remote: true, class: 'btn btn-danger btn-sm', role: 'button'
+  - if can? :update, answer
     = link_to 'Edit', '', remote: true, class: 'edit-answer-link btn btn-default btn-sm', data: {answer: answer.id}
 
     = render 'answers/form_edit', answer: answer
