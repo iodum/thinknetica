@@ -60,7 +60,7 @@ gem 'cocoon'
 gem 'skim'
 gem 'gon'
 gem 'responders', '~> 2.0'
-gem 'cancancan', '~> 1.10'
+gem 'pundit'
 
 group :test, :development do
   gem 'rspec-rails'

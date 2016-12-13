@@ -8,10 +8,8 @@ class QuestionsController < ApplicationController
 
   respond_to :js
 
-  authorize_resource
-
   def index
-    respond_with(@questions = Question.all)
+    respond_with( @questions = Question.all)
   end
 
   def show
@@ -23,6 +21,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
+    authorize Question
     respond_with(@question = current_user.questions.create(questions_params))
   end
 
@@ -30,11 +29,13 @@ class QuestionsController < ApplicationController
   end
 
   def update
+    authorize @question
     @question.update(questions_params) if current_user.author_of?(@question)
     respond_with(@question)
   end
 
   def destroy
+    authorize @question
     respond_with(@question.destroy) if current_user.author_of?(@question)
   end
 

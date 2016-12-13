@@ -1,5 +1,5 @@
 .comments-wrapper
-  - if can? :create, Comment
+  - if policy(Comment).create?
     div
       = link_to 'Add comment', '', class: 'edit-comment-link'
       = form_for [resource, resource.comments.build], remote: true do |f|
