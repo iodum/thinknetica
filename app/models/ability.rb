@@ -24,14 +24,14 @@ class Ability
   def user_abilities
     guest_abilities
     can :create, [Question, Answer, Comment]
-    can :update, [Question, Answer], user: user
-    can :destroy, [Question, Answer], user: user
+    can :update, [Question, Answer], user_id: user.id
+    can :destroy, [Question, Answer], user_id: user.id
     can :destroy, [Attachment], attachable: { user_id: user.id }
 
-    can :accept, Answer, question: {user_id: user.id}
+    can :accept, Answer, question: { user_id: user.id }
 
-    can [:vote_up,:vote_down], [Question, Answer] do |resource|
-      resource.user_id != user.id
+    can [:vote_up, :vote_down], [Question, Answer] do |resource|
+      !user.author_of?(resource)
     end
   end
 end
