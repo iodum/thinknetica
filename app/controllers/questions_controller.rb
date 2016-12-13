@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
   respond_to :js
 
   def index
-    respond_with( @questions = Question.all)
+    respond_with(@questions = Question.all)
   end
 
   def show
@@ -30,13 +30,13 @@ class QuestionsController < ApplicationController
 
   def update
     authorize @question
-    @question.update(questions_params) if current_user.author_of?(@question)
+    @question.update(questions_params)
     respond_with(@question)
   end
 
   def destroy
     authorize @question
-    respond_with(@question.destroy) if current_user.author_of?(@question)
+    respond_with(@question.destroy)
   end
 
   private

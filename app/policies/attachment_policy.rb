@@ -6,6 +6,6 @@ class AttachmentPolicy < ApplicationPolicy
   end
 
   def destroy?
-    user.admin? || user == record.attachable.user if user
+    user.admin? || user.author_of?(record.attachable) if user
   end
 end

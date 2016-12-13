@@ -5,23 +5,6 @@ class QuestionPolicy < ApplicationPolicy
     end
   end
 
-  def create?
-    user
-  end
+  include ResourcePolicy
 
-  def update?
-    user.admin? || user == record.user if user
-  end
-
-  def destroy?
-    user.admin? || user == record.user if user
-  end
-
-  def vote_up?
-    user != record.user if user
-  end
-
-  def vote_down?
-    user != record.user if user
-  end
 end
