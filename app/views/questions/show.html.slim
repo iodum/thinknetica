@@ -8,5 +8,5 @@ h2 Answers
   - else
     p No any answers yet =(
 
-- if can? :create, Answer
+- if policy(Answer).create?
   = render 'answers/form'

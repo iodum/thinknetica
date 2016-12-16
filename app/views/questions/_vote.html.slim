@@ -1,6 +1,6 @@
 .rating-wrapper
-  - if can? :vote_up, resource
+  - if policy(resource).vote_up?
     = link_to '+', polymorphic_path([:vote_up, resource]), method: :patch,remote: true, class: "vote-link v-up btn btn-default btn-#{ resource.has_votes?(current_user, 1) ? 'success' : '' } btn-xs"
   span.rating-result= resource.rating
-  - if can? :vote_down, resource
+  - if policy(resource).vote_down?
     = link_to '-', polymorphic_path([:vote_down, resource]), method: :patch, remote: true, class: "vote-link v-down btn btn-default btn-#{ resource.has_votes?(current_user, -1) ? 'success' : '' } btn-xs"

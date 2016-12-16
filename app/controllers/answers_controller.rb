@@ -8,23 +8,25 @@ class AnswersController < ApplicationController
 
   respond_to :js
 
-  authorize_resource
-
   def create
+    authorize Answer
     @question = Question.find(params[:question_id])
     respond_with(@answer = @question.answers.create(answers_params.merge(user: current_user)))
   end
 
   def update
+    authorize @answer
     @answer.update(answers_params) if current_user.author_of?(@answer)
     respond_with(@answer)
   end
 
   def destroy
+    authorize @answer
     respond_with(@answer.destroy) if current_user.author_of?(@answer)
   end
 
   def accept
+    authorize @answer
     @answer.accept if current_user.author_of?(@answer.question)
     respond_with(@answer)
   end
