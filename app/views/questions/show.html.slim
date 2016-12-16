@@ -8,5 +8,5 @@ h2 Answers
   - else
     p No any answers yet =(
 
-- if user_signed_in?
+- if can? :create, Answer
   = render 'answers/form'
