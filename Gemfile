@@ -61,6 +61,7 @@ gem 'skim'
 gem 'gon'
 gem 'responders', '~> 2.0'
 gem 'pundit'
+gem 'doorkeeper'
 
 group :test, :development do
   gem 'rspec-rails'
@@ -75,4 +76,5 @@ group :test do
   gem 'database_cleaner'
   gem 'capybara-webkit'
   gem 'capybara-email'
+  gem 'json_spec'
 end
