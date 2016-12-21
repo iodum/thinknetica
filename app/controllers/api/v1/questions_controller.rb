@@ -5,4 +5,15 @@ class Api::V1::QuestionsController < Api::V1::BaseController
     respond_with @questions
   end
 
+  def show
+    @question = Question.find(params[:id])
+    respond_with @question, serializer: QuestionDetailSerializer
+  end
+
+  private
+
+  def questions_params
+    params.required(:question).permit(:title, :body)
+  end
+
 end
