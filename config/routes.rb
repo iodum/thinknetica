@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :comments, shallow: true, only: [:create]
   end
 
-  devise_for :users, controllers: {omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations'}
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks', registrations: 'registrations' }
 
   as :user do
     get 'users/edit_email', to: 'registrations#edit_email', as: :edit_user_email

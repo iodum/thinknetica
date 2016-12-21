@@ -3,4 +3,3 @@ class QuestionDetailSerializer < ActiveModel::Serializer
   has_many :comments
   has_many :attachments
 end
-
