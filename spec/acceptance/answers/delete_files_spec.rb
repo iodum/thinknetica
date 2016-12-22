@@ -9,68 +9,10 @@ feature 'Delete files', %q{
   given(:user) { create(:user) }
   given!(:answer) { create(:answer_with_attachment, user: user) }
 
-  describe 'Author' do
-    before do
-      sign_in(user)
-      visit question_path answer.question
-    end
+  given(:question) { answer.question }
+  given(:attachable) { answer }
+  given(:type) { 'answer' }
 
-    describe 'in answer show view' do
-      scenario 'has link to delete own file', js: true  do
-        within '.answer-wrapper' do
-          expect(page).to have_selector '.glyphicon-remove'
-        end
-      end
-
-      scenario 'can delete own file', js: true  do
-        attachment = answer.attachments.first
-        within '.answer-wrapper .attachments' do
-          click_on 'delete'
-        end
-        expect(page).to_not have_link attachment.file.identifier, href: attachment.file.url
-      end
-    end
-
-    scenario 'has link to delete own file in answer edit view', js: true  do
-      within '.answer-wrapper' do
-        click_on 'Edit'
-      end
-      within '.edit_answer' do
-        expect(page).to have_link 'Delete'
-      end
-    end
-  end
-
-  describe 'Authenticated user' do
-    before do
-      new_user = create(:user)
-      sign_in(new_user)
-      visit question_path answer.question
-    end
-
-    scenario 'can\'t delete other user\'s files', js: true  do
-      within '.answer-wrapper' do
-        expect(page).to_not have_selector '.glyphicon-remove'
-      end
-    end
-
-    scenario 'can\'t delete other user\'s files in edit form', js: true  do
-      within '.answer-wrapper' do
-        expect(page).to_not have_link 'Edit'
-        expect(page).to_not have_link 'Delete'
-      end
-    end
-  end
-
-  scenario 'Non-authenticated user can\'t delete any file', js: true  do
-    visit question_path answer.question
-    within '.answer-wrapper' do
-      expect(page).to_not have_link 'Edit'
-      within '.attachments' do
-        expect(page).to_not have_link 'Delete'
-        expect(page).to_not have_selector '.glyphicon-remove'
-      end
-    end
-  end
+  it_behaves_like 'Delete files'
 
 end
