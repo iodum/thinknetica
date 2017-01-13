@@ -15,7 +15,7 @@ feature 'Create question', %q{
     click_on 'Ask question'
     fill_in 'Title', with: data[:title]
     fill_in 'Body', with: data[:body]
-    click_on 'Create'
+    click_on 'Add'
 
     expect(page).to have_content data[:title]
     expect(page).to have_content data[:body]
@@ -29,7 +29,7 @@ feature 'Create question', %q{
     click_on 'Ask question'
     fill_in 'Title', with: ''
     fill_in 'Body', with: 'Question'
-    click_on 'Create'
+    click_on 'Add'
 
     expect(page).to have_content 'Question could not be created'
 
@@ -59,7 +59,7 @@ feature 'Create question', %q{
         click_on 'Ask question'
         fill_in 'Title', with: data[:title]
         fill_in 'Body', with: data[:body]
-        click_on 'Create'
+        click_on 'Add'
 
         expect(page).to have_content data[:title]
         expect(page).to have_content data[:body]

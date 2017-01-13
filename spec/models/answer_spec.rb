@@ -1,10 +1,12 @@
 require 'rails_helper'
 require_relative 'concerns/votable'
 require_relative 'concerns/commentable'
+require_relative 'concerns/attachable'
 
 RSpec.describe Answer, type: :model do
   it_behaves_like 'votable'
   it_behaves_like 'commentable'
+  it_behaves_like 'attachable'
 
   it { should belong_to(:user) }
   it { should belong_to(:question) }
@@ -14,8 +16,6 @@ RSpec.describe Answer, type: :model do
   it { should validate_presence_of(:body) }
   it { should validate_length_of(:body).is_at_least(5) }
   it { should validate_uniqueness_of(:accepted).scoped_to(:question_id) }
-
-  it { should accept_nested_attributes_for :attachments }
 
   describe '#accept' do
     let(:user) { create(:user) }
