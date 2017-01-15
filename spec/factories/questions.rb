@@ -19,6 +19,10 @@ FactoryGirl.define do
         create(:attachment, attachable: question)
       end
     end
+
+    factory :old_question do
+      created_at Date.yesterday
+    end
   end
 
   factory :invalid_question, class: 'Question' do

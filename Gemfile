@@ -65,6 +65,8 @@ gem 'doorkeeper'
 gem 'active_model_serializers'
 gem 'oj'
 gem 'oj_mimic_json'
+gem 'whenever'
+gem 'sidekiq'
 
 group :test, :development do
   gem 'rspec-rails'
