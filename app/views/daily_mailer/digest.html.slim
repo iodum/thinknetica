@@ -1,2 +1,5 @@
-h1 Daily#digest
-p = @greeting + ", find me in app/views/daily_mailer/digest.html.slim"
+h1 Daily digest
+  
+- if @questions.any?
+  - @questions.each do |question|
+    p = link_to question.title, question_url(question)
