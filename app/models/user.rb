@@ -44,7 +44,7 @@ class User < ApplicationRecord
     "temp_#{auth.uid}@#{auth.provider}.com"
   end
 
-  def is_subscribed(question)
+  def is_subscribed?(question)
     subscriptions.where(question: question).exists?
   end
 end

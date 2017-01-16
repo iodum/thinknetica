@@ -11,6 +11,6 @@ class SubscriptionPolicy < ApplicationPolicy
 
   def destroy?
 
-    user.admin? || user.author_of?(record) || user.is_subscribed(record) if user
+    user.admin? || user.author_of?(record) || user.is_subscribed?(record) if user
   end
 end

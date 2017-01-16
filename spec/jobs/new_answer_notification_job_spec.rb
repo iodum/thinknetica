@@ -5,13 +5,16 @@ RSpec.describe NewAnswerNotificationJob, type: :job do
 
   let(:job) { NewAnswerNotificationJob.perform_now(answer) }
 
-
   let(:question) { create(:question) }
   let!(:answer) { create(:answer, question: question) }
+  let(:subscriptions) { create_pair(:subscription, question: question) }
 
   it 'does not perform job' do
-    expect(AnswerSubscriptionMailer).to receive(:notify).with(question.user, answer).and_call_original
+    question.subscriptions.each do |subscription|
+      expect(AnswerSubscriptionMailer).to receive(:notify).with(subscription.user, answer).and_call_original
+    end
     job
   end
+
 
 end

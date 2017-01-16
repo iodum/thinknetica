@@ -101,11 +101,11 @@ RSpec.describe User do
 
     it 'user is subscribed to question' do
       user.subscriptions.create(question_id: question.id)
-      expect(user.is_subscribed(question)).to be_truthy
+      expect(user.is_subscribed?(question)).to be_truthy
     end
 
     it 'user is not subscribed to question' do
-      expect(user.is_subscribed(question)).to be_falsey
+      expect(user.is_subscribed?(question)).to be_falsey
     end
   end
 end

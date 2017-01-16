@@ -21,7 +21,7 @@
 
   - if policy(Subscription).create?
     .subscription
-      - if current_user.is_subscribed(@question)
+      - if current_user.is_subscribed?(@question)
         = link_to 'unsubscribe', subscription_path(@subscription), method: :delete, remote: true
       - else
         = link_to 'subscribe', question_subscriptions_path(@question), method: :post, remote: true
