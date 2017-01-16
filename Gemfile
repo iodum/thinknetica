@@ -67,6 +67,8 @@ gem 'oj'
 gem 'oj_mimic_json'
 gem 'whenever'
 gem 'sidekiq'
+gem 'mysql2'
+gem 'thinking-sphinx'
 
 group :test, :development do
   gem 'rspec-rails'
