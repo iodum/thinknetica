@@ -19,4 +19,11 @@
     = link_to 'Edit', '', remote: true, class: 'edit-question-link btn btn-default', data: {question: question.id}
     = render 'form'
 
+  - if policy(Subscription).create?
+    .subscription
+      - if current_user.is_subscribed(@question)
+        = link_to 'unsubscribe', subscription_path(@subscription), method: :delete, remote: true
+      - else
+        = link_to 'subscribe', question_subscriptions_path(@question), method: :post, remote: true
+
   = render 'questions/comments', resource: question
