@@ -2,6 +2,8 @@ class Answer < ApplicationRecord
   include Votable
   include Commentable
 
+  after_create_commit { NewAnswerNotificationJob.perform_later self }
+
   default_scope { order(accepted: :desc, created_at: :asc) }
 
   belongs_to :question

@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :authorizations, dependent: :destroy
+  has_many :subscriptions, dependent: :destroy
 
   def author_of?(object)
     id == object.user_id
@@ -41,5 +42,9 @@ class User < ApplicationRecord
 
   def self.get_email(auth)
     "temp_#{auth.uid}@#{auth.provider}.com"
+  end
+
+  def is_subscribed?(question)
+    subscriptions.where(question: question).exists?
   end
 end
