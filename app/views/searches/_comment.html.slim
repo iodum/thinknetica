@@ -1,0 +1,10 @@
+.search-item
+  .type comment
+
+  .body
+    p
+      = resource.text
+    - if resource.commentable_type == 'Answer'
+      = link_to  'View', resource.commentable.question
+    - else
+      = link_to  'View', resource.commentable
