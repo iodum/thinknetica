@@ -1,6 +1,7 @@
 h1 Список вопросов
 
 .questions-list
+  - cache collection_cache_key_for :question do
   - @questions.each do |question|
     = render question
 

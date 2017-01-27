@@ -1,3 +1,4 @@
 div.comment id="comment-#{comment.id}"
-  .body
-    = comment.text
+  - cache comment do
+    .body
+      = comment.text

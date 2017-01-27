@@ -6,7 +6,7 @@ class Answer < ApplicationRecord
 
   default_scope { order(accepted: :desc, created_at: :asc) }
 
-  belongs_to :question
+  belongs_to :question, touch: true
   belongs_to :user
   has_many :attachments, as: :attachable, dependent: :destroy
 
